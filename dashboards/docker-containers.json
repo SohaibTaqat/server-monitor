@@ -296,7 +296,7 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "" },
-          "expr": "{container=~\"$container\"}",
+          "expr": "{job=\"docker\", container=~\"$container\"}",
           "refId": "A"
         }
       ],
@@ -309,14 +309,15 @@
   "templating": {
     "list": [
       {
+        "allValue": ".+",
         "current": {},
         "datasource": { "type": "prometheus", "uid": "" },
-        "definition": "label_values(container_cpu_usage_seconds_total{name=~\".+\"}, name)",
+        "definition": "label_values(container_cpu_usage_seconds_total, name)",
         "includeAll": true,
         "multi": false,
         "name": "container",
         "query": {
-          "query": "label_values(container_cpu_usage_seconds_total{name=~\".+\"}, name)",
+          "query": "label_values(container_cpu_usage_seconds_total, name)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 2,
