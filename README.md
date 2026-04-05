@@ -19,8 +19,8 @@ A simple hardware monitoring stack for Ubuntu servers using Grafana Alloy, Prome
 ## Setup
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
+git clone https://github.com/SohaibTaqat/server-monitor.git
+cd server-monitor
 docker compose up -d
 ```
 

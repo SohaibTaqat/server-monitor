@@ -9,16 +9,14 @@ discovery.relabel "integrations_node_exporter" {
   }
 
   rule {
-    // Set a standard job name for all node_exporter metrics
+    // Set job name to match Node Exporter Full dashboard (ID 1860)
     target_label = "job"
-    replacement = "integrations/node_exporter"
+    replacement = "node"
   }
 }
 
 // Configure the node_exporter integration to collect system metrics
 prometheus.exporter.unix "integrations_node_exporter" {
-  // Point to host filesystem mounted at /host
-  rootfs = "/host"
   // Disable unnecessary collectors to reduce overhead
   disable_collectors = ["ipvs", "btrfs", "infiniband", "xfs", "zfs"]
 
