@@ -38,17 +38,24 @@ No login required - anonymous admin is enabled.
 
 ## Dashboards
 
-### Docker Containers (auto-provisioned)
-A "Docker Containers" dashboard is included out of the box with:
-- **Overview table** — all containers with CPU %, memory, and network I/O at a glance
-- **Per-container detail** — select a container from the dropdown to see CPU, memory, and network graphs plus live logs
+### Hardware Overview (auto-provisioned)
+A quick-glance dashboard with:
+- **System stats** — uptime, CPU cores, total RAM, load average
+- **Health gauges** — CPU, RAM, swap, root filesystem usage
+- **Per-core CPU** bar chart + CPU temperature gauge
+- **Network & Disk I/O** — stats with sparklines
 
-### Node Exporter Full (manual import)
+### Node Exporter Full (optional manual import)
 1. Open Grafana at http://localhost:3000
 2. Go to **Dashboards** > **Import**
 3. Enter ID `1860` and click **Load**
 4. Select **Prometheus** as the data source
 5. Click **Import**
+
+### Docker Containers (auto-provisioned)
+A "Docker Containers" dashboard with:
+- **Overview table** — all containers with CPU %, memory, and network I/O at a glance
+- **Per-container detail** — select a container from the dropdown to see CPU, memory, and network graphs plus live logs
 
 ### Log Explorer
 Open http://localhost:3000/a/grafana-lokiexplore-app to explore system and container logs.
