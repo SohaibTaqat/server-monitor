@@ -695,7 +695,7 @@
         "showControls": false,
         "showLabels": false,
         "showTime": true,
-        "sortOrder": "Descending",
+        "sortOrder": "Ascending",
         "unwrappedColumns": false,
         "wrapLogMessage": true
       },
