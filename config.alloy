@@ -223,5 +223,20 @@ prometheus.scrape "cadvisor" {
   forward_to = [prometheus.remote_write.local.receiver]
 }
 
+// ============================================================
+// NVIDIA GPU Metrics (DCGM Exporter)
+// ============================================================
+
+// Scrape GPU metrics from DCGM Exporter
+prometheus.scrape "dcgm" {
+  scrape_interval = "15s"
+  targets = [{
+    __address__ = "dcgm-exporter:9400",
+    job         = "dcgm",
+    instance    = constants.hostname,
+  }]
+  forward_to = [prometheus.remote_write.local.receiver]
+}
+
 // Enable live debugging features (empty config means use defaults)
 livedebugging{}

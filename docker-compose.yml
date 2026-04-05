@@ -72,6 +72,18 @@ services:
          EOF
          /run.sh
 
+  dcgm-exporter:
+    image: nvidia/dcgm-exporter:${DCGM_EXPORTER_VERSION:-3.3.9-3.6.1-ubuntu22.04}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - 9400:9400/tcp
+
   alloy:
     image: grafana/alloy:${GRAFANA_ALLOY_VERSION:-v1.14.0}
     privileged: true

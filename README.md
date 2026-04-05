@@ -12,11 +12,13 @@ A simple hardware monitoring stack for Ubuntu servers using Grafana Alloy, Prome
 - System logs (journald + file logs)
 - Docker container metrics (CPU, memory, network per container)
 - Docker container logs (auto-discovered, including new containers)
+- NVIDIA GPU metrics (utilization, memory, temperature, power, clocks)
 
 ## Requirements
 
 - Ubuntu 20.04+ (or other modern Linux with systemd)
 - Docker and Docker Compose
+- NVIDIA Container Toolkit (for GPU monitoring)
 
 ## Setup
 
@@ -33,6 +35,7 @@ docker compose up -d
 | Grafana | http://localhost:3000 | Dashboards and logs |
 | Alloy | http://localhost:12345 | Pipeline debugging |
 | Prometheus | http://localhost:9090 | Raw metrics queries |
+| DCGM Exporter | http://localhost:9400 | GPU metrics endpoint |
 
 No login required - anonymous admin is enabled.
 
@@ -51,6 +54,14 @@ A quick-glance dashboard with:
 3. Enter ID `1860` and click **Load**
 4. Select **Prometheus** as the data source
 5. Click **Import**
+
+### GPU Overview (auto-provisioned)
+A dashboard for NVIDIA GPUs with:
+- **GPU info** — count and model names (auto-discovered)
+- **Utilization & memory gauges** — per GPU side by side
+- **Temperature & power gauges** — per GPU
+- **Clock speeds** — SM and memory clocks as bar gauges
+- **Trend graphs** — utilization, memory, temperature, and power over time
 
 ### Docker Containers (auto-provisioned)
 A "Docker Containers" dashboard with:
