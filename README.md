@@ -10,6 +10,8 @@ A simple hardware monitoring stack for Ubuntu servers using Grafana Alloy, Prome
 - Network traffic
 - System load
 - System logs (journald + file logs)
+- Docker container metrics (CPU, memory, network per container)
+- Docker container logs (auto-discovered, including new containers)
 
 ## Requirements
 
@@ -34,17 +36,22 @@ docker compose up -d
 
 No login required - anonymous admin is enabled.
 
-## Import Dashboard
+## Dashboards
 
+### Docker Containers (auto-provisioned)
+A "Docker Containers" dashboard is included out of the box with:
+- **Overview table** — all containers with CPU %, memory, and network I/O at a glance
+- **Per-container detail** — select a container from the dropdown to see CPU, memory, and network graphs plus live logs
+
+### Node Exporter Full (manual import)
 1. Open Grafana at http://localhost:3000
 2. Go to **Dashboards** > **Import**
 3. Enter ID `1860` and click **Load**
 4. Select **Prometheus** as the data source
 5. Click **Import**
 
-## View Logs
-
-Open http://localhost:3000/a/grafana-lokiexplore-app to explore system logs.
+### Log Explorer
+Open http://localhost:3000/a/grafana-lokiexplore-app to explore system and container logs.
 
 ## Commands
 
@@ -70,6 +77,7 @@ docker compose restart alloy
 | `config.alloy` | Metrics and log collection config |
 | `prom-config.yaml` | Prometheus settings |
 | `loki-config.yaml` | Loki settings |
+| `dashboards/` | Auto-provisioned Grafana dashboards |
 
 ## Customization
 
