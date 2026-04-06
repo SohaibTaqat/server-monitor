@@ -28,6 +28,8 @@ services:
       - GF_AUTH_BASIC_ENABLED=false
     ports:
       - 3000:3000/tcp
+    volumes:
+      - ./dashboards:/etc/grafana/provisioning/dashboards/json:ro
     entrypoint:
        - sh
        - -euc
@@ -54,6 +56,20 @@ services:
            version: 1
            editable: false
          EOF
+         cat <<EOF > /etc/grafana/provisioning/dashboards/dashboards.yaml
+         apiVersion: 1
+         providers:
+         - name: default
+           orgId: 1
+           folder: ''
+           type: file
+           disableDeletion: false
+           editable: true
+           updateIntervalSeconds: 30
+           options:
+             path: /etc/grafana/provisioning/dashboards/json
+             foldersFromFilesStructure: false
+         EOF
          /run.sh
 
   alloy:
@@ -71,4 +87,7 @@ services:
       - /run/log/journal:/run/log/journal:ro
       - /var/log/journal:/var/log/journal:ro
       - /etc/machine-id:/etc/machine-id:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /var/run:/var/run:ro
     command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy

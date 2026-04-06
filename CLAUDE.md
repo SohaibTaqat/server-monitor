@@ -25,7 +25,9 @@ Host OS (Ubuntu)
   ├── Alloy (grafana/alloy) — collects metrics + logs
   │     ├── prometheus.exporter.unix → scrape → prometheus.remote_write → Prometheus:9090
   │     ├── loki.source.journal ──→ loki.write → Loki:3100
-  │     └── loki.source.file ────→ loki.write → Loki:3100
+  │     ├── loki.source.file ────→ loki.write → Loki:3100
+  │     ├── loki.source.docker ──→ loki.write → Loki:3100  (container logs)
+  │     └── prometheus.exporter.cadvisor → scrape → prometheus.remote_write → Prometheus:9090  (container metrics)
   │
   ├── Prometheus (:9090) — metrics storage, receives remote writes from Alloy
   ├── Loki (:3100) — log storage
@@ -35,10 +37,11 @@ Host OS (Ubuntu)
 ## Key Config Relationships
 
 - **docker-compose.yml** — defines all four services; Alloy runs `privileged: true` with `pid: host` and mounts the host root at `/host:ro,rslave` so node_exporter collectors can read host-level metrics from inside the container.
-- **config.alloy** — Alloy pipeline config (River syntax). `rootfs = "/host"` tells the unix exporter to read from the mounted host filesystem. Metrics go to `prometheus:9090`, logs go to `loki:3100`.
+- **config.alloy** — Alloy pipeline config (River syntax). `HOST_ROOT_PREFIX=/host` env var tells the unix exporter to read from the mounted host filesystem. Metrics go to `prometheus:9090`, logs go to `loki:3100`. Also collects Docker container logs and metrics via the Docker socket.
 - **prom-config.yaml** — minimal Prometheus config; Alloy pushes via remote write, so no scrape targets are defined here.
 - **loki-config.yaml** — single-instance Loki with TSDB + filesystem storage.
-- Grafana datasources (Prometheus + Loki) are provisioned inline in the Grafana service's entrypoint script within docker-compose.yml, not in a separate file.
+- **dashboards/** — auto-provisioned Grafana dashboards. `docker-containers.json` provides an overview of all containers plus per-container drill-down with logs.
+- Grafana datasources (Prometheus + Loki) and dashboard provisioning are configured inline in the Grafana service's entrypoint script within docker-compose.yml.
 
 ## Deployment Notes
 
