@@ -6,6 +6,7 @@ services:
       - 3100:3100/tcp
     volumes:
       - ./loki-config.yaml:/etc/loki/local-config.yaml
+      - ./data/loki:/loki
     command: -config.file=/etc/loki/local-config.yaml
 
 
@@ -18,18 +19,19 @@ services:
       - 9090:9090/tcp
      volumes:
         - ./prom-config.yaml:/etc/prometheus/prometheus.yml
+        - ./data/prometheus:/prometheus
 
 
   grafana:
     image: grafana/grafana:${GRAFANA_VERSION:-12.4.0}
     environment:
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_BASIC_ENABLED=false
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_AUTH_BASIC_ENABLED=true
     ports:
       - 3000:3000/tcp
     volumes:
       - ./dashboards:/etc/grafana/provisioning/dashboards/json:ro
+      - ./data/grafana:/var/lib/grafana
     entrypoint:
        - sh
        - -euc

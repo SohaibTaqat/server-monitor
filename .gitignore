@@ -1,0 +1,5 @@
+# Persistent data (keep directories, ignore contents)
+data/prometheus/*
+data/loki/*
+data/grafana/*
+!data/**/.gitkeep

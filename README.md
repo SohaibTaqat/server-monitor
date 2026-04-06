@@ -23,6 +23,7 @@ A simple hardware monitoring stack for Ubuntu servers using Grafana Alloy, Prome
 ```bash
 git clone https://github.com/SohaibTaqat/server-monitor.git
 cd server-monitor
+./setup.sh          # run once to set data directory permissions
 docker compose up -d
 ```
 
@@ -85,6 +86,7 @@ docker compose restart alloy
 | `prom-config.yaml` | Prometheus settings |
 | `loki-config.yaml` | Loki settings |
 | `dashboards/` | Auto-provisioned Grafana dashboards |
+| `data/` | Persistent storage for Prometheus, Loki, and Grafana (gitignored) |
 
 ## Customization
 
