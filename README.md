@@ -23,6 +23,7 @@ A simple hardware monitoring stack for Ubuntu servers using Grafana Alloy, Prome
 ```bash
 git clone https://github.com/SohaibTaqat/server-monitor.git
 cd server-monitor
+./setup.sh          # run once to set data directory permissions
 docker compose up -d
 ```
 
