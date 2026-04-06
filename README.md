@@ -85,6 +85,7 @@ docker compose restart alloy
 | `prom-config.yaml` | Prometheus settings |
 | `loki-config.yaml` | Loki settings |
 | `dashboards/` | Auto-provisioned Grafana dashboards |
+| `data/` | Persistent storage for Prometheus, Loki, and Grafana (gitignored) |
 
 ## Customization
 
